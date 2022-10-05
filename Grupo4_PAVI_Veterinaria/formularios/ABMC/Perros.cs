@@ -22,10 +22,11 @@ namespace Grupo4_PAVI_Veterinaria.formularios.abmcPerros
 
         private void Perros_Load(object sender, EventArgs e)
         {
-            btnActualizar.Enabled = false;
+            LimpiarCampos();
             CargarCombosRazas();
             CargarCombosDueños();
             CargarGrilla();
+            
         }
 
         private void LimpiarCampos()
@@ -36,6 +37,11 @@ namespace Grupo4_PAVI_Veterinaria.formularios.abmcPerros
             txtPeso.Text = "";
             cmbDueño.SelectedIndex = -1;
             cmbRaza.SelectedIndex = -1;
+            txtMotivo.Text = "";
+            btnEliminar.Enabled = false;
+            btnActualizar.Enabled = false;
+            txtMotivo.Enabled = false;
+            txtNroHC.Text = PerrosBD.ObtenerUltimoNroHC();
         }
 
         private void CargarGrilla()
@@ -62,8 +68,16 @@ namespace Grupo4_PAVI_Veterinaria.formularios.abmcPerros
         private Perro ObtenerDatosPerro()
         {
             Perro p = new Perro();
+            p.Nro_HC = int.Parse(txtNroHC.Text.Trim());
             p.Nombre = txtNombre.Text.Trim();
-            p.FechaNacimiento = DateTime.Parse(txtFecha.Text);
+            if (txtFecha.Text.Equals("  /  /"))
+            {
+                p.FechaNacimiento = DateTime.Now;
+            }
+            else
+            {
+                p.FechaNacimiento = DateTime.Parse(txtFecha.Text);
+            }
             p.Id_raza = (int)cmbRaza.SelectedValue;
             p.Id_dueño = (int)cmbDueño.SelectedValue;
             p.Peso = float.Parse(txtPeso.Text.Trim());
@@ -73,37 +87,49 @@ namespace Grupo4_PAVI_Veterinaria.formularios.abmcPerros
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            Perro p = ObtenerDatosPerro();
-            bool resultado = PerrosBD.AgregarPerroBD(p);
-            if (resultado)
+            if (VerificarCampos() == true)
             {
-                MessageBox.Show("Perro agregado con éxito.");
-                LimpiarCampos();
-                CargarCombosRazas();
-                CargarCombosDueños();
-                CargarGrilla();
+                Perro p = ObtenerDatosPerro();
+                bool resultado = PerrosBD.AgregarPerroBD(p);
+                if (resultado)
+                {
+                    MessageBox.Show("Perro agregado con éxito.");
+                    LimpiarCampos();
+                    CargarCombosRazas();
+                    CargarCombosDueños();
+                    CargarGrilla();
+                }
+                else
+                {
+                    MessageBox.Show("Error al registrar.");
+                }
             }
             else
             {
-                MessageBox.Show("Error al registrar.");
+                MessageBox.Show("Por favor ingrese los datos solicitados");
             }
+            
         }
 
         private void gdr_perros_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int indice = e.RowIndex;
+            LimpiarCampos();
             btnActualizar.Enabled = true;
+            btnEliminar.Enabled = true;
+            txtMotivo.Enabled = true;
             DataGridViewRow fila = gdr_perros.Rows[indice];
 
             string nro_Hc = fila.Cells["Nro_HC"].Value.ToString();
 
             Perro p = PerrosBD.ObtenerPerro(nro_Hc);
-            LimpiarCampos();
+            
             CargarCampos(p);
         }
 
         private void CargarCampos(Perro p)
         {
+            txtNroHC.Text = p.Nro_HC.ToString();
             txtNombre.Text = p.Nombre;
             txtPeso.Text = p.Peso.ToString();
             txtAltura.Text = p.Altura.ToString();
@@ -123,7 +149,15 @@ namespace Grupo4_PAVI_Veterinaria.formularios.abmcPerros
             cmbRaza.SelectedValue = p.Id_raza;
             cmbDueño.SelectedValue = p.Id_dueño;
         }
-
+        private bool VerificarCampos()
+        {
+            bool verificador = false;
+            if(cmbDueño.SelectedValue != null && cmbRaza.SelectedValue != null && txtNombre.Text.Equals(""))
+            {
+                verificador = true;
+            }
+            return verificador;
+        }
         private void btnActualizar_Click(object sender, EventArgs e)
         {
             Perro p = ObtenerDatosPerro();
@@ -145,7 +179,35 @@ namespace Grupo4_PAVI_Veterinaria.formularios.abmcPerros
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             LimpiarCampos();
-            btnActualizar.Enabled = false;
         }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (txtMotivo.Text.Equals(""))
+            {
+                MessageBox.Show("Por favor cargue un motivo.");
+            }
+            else
+            {
+                Perro p = ObtenerDatosPerro();
+                DialogResult dialogResult = MessageBox.Show("¿Desea continuar con la baja?", "Confirmación de baja", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    bool resultado = PerrosBD.EliminarPerro(p.Nro_HC.ToString());
+                    MessageBox.Show("Se ha eliminado el registro.");
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    MessageBox.Show("Usted ha cancelado la acción.");
+                }
+                LimpiarCampos();
+                CargarCombosRazas();
+                CargarCombosDueños();
+                CargarGrilla();
+
+            }
+            
+        }
+
     }
 }

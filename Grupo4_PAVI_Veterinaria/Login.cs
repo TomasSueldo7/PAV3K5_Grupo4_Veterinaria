@@ -36,7 +36,7 @@ namespace Grupo4_PAVI_Veterinaria
 
                 if (resultado)
                 {
-                    PrincipalForm ventana = new PrincipalForm();
+                    PrincipalForm ventana = new PrincipalForm(nombreDeUsuario);
                     ventana.Show();
                     this.Hide();
                 }

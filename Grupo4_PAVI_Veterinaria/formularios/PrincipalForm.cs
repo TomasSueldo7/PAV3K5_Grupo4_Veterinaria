@@ -14,27 +14,29 @@ namespace Grupo4_PAVI_Veterinaria.formularios
 {
     public partial class PrincipalForm : Form
     {
-        public PrincipalForm()
+        public PrincipalForm(string nombreDeUsuario)
         {
             InitializeComponent();
+            lblBienvenido.Text = lblBienvenido.Text + " " + nombreDeUsuario;
+
         }
 
         private void nuevoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             NuevoEmpleado ventana = new NuevoEmpleado();
-            ventana.Show();
+            ventana.ShowDialog();
         }
 
         private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Perros ventana = new Perros();
-            ventana.Show();
+            ventana.ShowDialog();
         }
 
         private void empleadosToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             NuevoEmpleado ventana = new NuevoEmpleado();
-            ventana.Show();
+            ventana.ShowDialog();
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Grupo4_PAVI_Veterinaria.Datos
                 //string consulta1 = "SELECT Nro_HC, Nombre, Fecha_nacimiento, Id_raza, Id_owner, Peso, Altura FROM Perros";
 
                 string consulta = "SELECT P.Nro_HC, P.Nombre, P.Fecha_nacimiento, R.Denominacion, D.Nombre as Dueño, P.Peso, P.Altura " +
-                   "FROM Perros P JOIN Dueños D ON P.Id_owner = D.Id_dueño JOIN Razas R ON P.Id_raza = R.Id_raza";
+                   "FROM Perros P JOIN Dueños D ON P.Id_owner = D.Id_dueño JOIN Razas R ON P.Id_raza = R.Id_raza WHERE P.Activo = 1";
 
                 cmd.Parameters.Clear();
                 cmd.CommandType = CommandType.Text;
@@ -199,8 +199,6 @@ namespace Grupo4_PAVI_Veterinaria.Datos
 
         public static bool ActualizarPerro(Perro p)
         {
-
-            //FALTA VALIDAR QUE NO EXISTA EL USUARIO
             bool resultado = false;
             string cadenaConexion = System.Configuration.ConfigurationManager.AppSettings["CadenaBD"];
             SqlConnection cn = new SqlConnection(cadenaConexion);
@@ -238,5 +236,71 @@ namespace Grupo4_PAVI_Veterinaria.Datos
             }
         }
 
+
+        public static bool EliminarPerro(string nro)
+        {
+
+            bool resultado = false;
+            string cadenaConexion = System.Configuration.ConfigurationManager.AppSettings["CadenaBD"];
+            SqlConnection cn = new SqlConnection(cadenaConexion);
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+
+
+                string actualizacion = "UPDATE Perros SET Activo = 0 WHERE Nro_HC = @nro";
+
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("nro", nro);
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = actualizacion;
+
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+                resultado = true;
+                return resultado;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
+
+        public static string ObtenerUltimoNroHC()
+        {
+            string cadenaConexion = System.Configuration.ConfigurationManager.AppSettings["CadenaBD"];
+            SqlConnection cn = new SqlConnection(cadenaConexion);
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+
+
+                string consulta = "SELECT MAX(Nro_HC) FROM Perros";
+                cmd.Parameters.Clear();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = consulta;
+
+                cn.Open();
+                cmd.Connection = cn;
+
+                int resultado = (int)cmd.ExecuteScalar();
+                int id = resultado + 1;
+                return id.ToString();
+
+            }
+            catch (Exception)
+            {
+                return "1";
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
     }
 }
