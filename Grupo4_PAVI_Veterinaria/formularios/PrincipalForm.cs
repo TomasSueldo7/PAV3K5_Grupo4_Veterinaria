@@ -38,5 +38,11 @@ namespace Grupo4_PAVI_Veterinaria.formularios
             NuevoEmpleado ventana = new NuevoEmpleado();
             ventana.ShowDialog();
         }
+
+        private void registrarConsultaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConsultaMedica ventana = new ConsultaMedica();
+            ventana.ShowDialog();
+        }
     }
 }

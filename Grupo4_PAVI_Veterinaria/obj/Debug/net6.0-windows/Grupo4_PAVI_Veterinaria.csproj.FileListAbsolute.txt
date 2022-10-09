@@ -199,3 +199,4 @@ C:\Users\sueld\Desktop\Facultad\Facultad\3 - Tercer Año\PAV\TPI\Veterinaria\PAV
 C:\Users\sueld\Desktop\Facultad\Facultad\3 - Tercer Año\PAV\TPI\Veterinaria\PAV3K5_Grupo4_Veterinaria\Grupo4_PAVI_Veterinaria\obj\Debug\net6.0-windows\Grupo4_PAVI_Veterinaria.pdb
 C:\Users\sueld\Desktop\Facultad\Facultad\3 - Tercer Año\PAV\TPI\Veterinaria\PAV3K5_Grupo4_Veterinaria\Grupo4_PAVI_Veterinaria\obj\Debug\net6.0-windows\Grupo4_PAVI_Veterinaria.genruntimeconfig.cache
 C:\Users\sueld\Desktop\Facultad\Facultad\3 - Tercer Año\PAV\TPI\Veterinaria\PAV3K5_Grupo4_Veterinaria\Grupo4_PAVI_Veterinaria\obj\Debug\net6.0-windows\ref\Grupo4_PAVI_Veterinaria.dll
+C:\Users\sueld\Desktop\Facultad\Facultad\3 - Tercer Año\PAV\TPI\Veterinaria\PAV3K5_Grupo4_Veterinaria\Grupo4_PAVI_Veterinaria\obj\Debug\net6.0-windows\Grupo4_PAVI_Veterinaria.ConsultaMedica.resources

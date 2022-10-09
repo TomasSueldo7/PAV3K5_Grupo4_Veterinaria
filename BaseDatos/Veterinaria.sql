@@ -1,7 +1,7 @@
 --Creo la base de datos
-CREATE DATABASE Veterinaria__;
+CREATE DATABASE Veterinaria;
 --Selecciono la base de datos para hacer modificaciones
-USE Veterinaria__;
+USE Veterinaria;
 
 CREATE TABLE Tipo_Doc(
 	Id_TipoDoc int IDENTITY(1,1) NOT NULL,

@@ -83,8 +83,9 @@
             // registrarConsultaToolStripMenuItem
             // 
             this.registrarConsultaToolStripMenuItem.Name = "registrarConsultaToolStripMenuItem";
-            this.registrarConsultaToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.registrarConsultaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.registrarConsultaToolStripMenuItem.Text = "Registrar consulta";
+            this.registrarConsultaToolStripMenuItem.Click += new System.EventHandler(this.registrarConsultaToolStripMenuItem_Click);
             // 
             // lblBienvenido
             // 
