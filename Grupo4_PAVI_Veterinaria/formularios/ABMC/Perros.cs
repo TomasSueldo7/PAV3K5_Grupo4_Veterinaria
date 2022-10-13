@@ -83,6 +83,7 @@ namespace Grupo4_PAVI_Veterinaria.formularios.abmcPerros
             p.Id_dueño = (int)cmbDueño.SelectedValue;
             p.Peso = float.Parse(txtPeso.Text.Trim());
             p.Altura = float.Parse(txtAltura.Text.Trim());
+            p.Activo = true;
             return p;
         }
 

@@ -1,10 +1,12 @@
-﻿using Grupo4_PAVI_Veterinaria.formularios.abmcEmpleados;
+﻿using Grupo4_PAVI_Veterinaria.Datos;
+using Grupo4_PAVI_Veterinaria.formularios.abmcEmpleados;
 using Grupo4_PAVI_Veterinaria.formularios.abmcPerros;
 using Grupo4_PAVI_Veterinaria.formularios.abmcUsuario;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Contracts;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,11 +17,19 @@ namespace Grupo4_PAVI_Veterinaria.formularios
 {
     public partial class PrincipalForm : Form
     {
-        public PrincipalForm(string nombreDeUsuario)
+        public PrincipalForm(string nombreDeUsuario, string pwd)
         {
             InitializeComponent();
             lblBienvenido.Text = lblBienvenido.Text + " " + nombreDeUsuario;
-            
+            DataTable rol = UsuariosBD.ObtenerRol(nombreDeUsuario, pwd);
+            if ((rol.Rows[0][3]).ToString().Equals("administrador"))
+            {
+                reportesToolStripMenuItem.Enabled = false;
+                consultasToolStripMenuItem.Enabled = false;
+                empleadosToolStripMenuItem1.Enabled = false;
+                nuevoToolStripMenuItem.Enabled = false;
+            }
+
         }
 
         private void nuevoToolStripMenuItem1_Click(object sender, EventArgs e)

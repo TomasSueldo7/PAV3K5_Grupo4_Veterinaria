@@ -15,6 +15,7 @@ namespace Grupo4_PAVI_Veterinaria.Entidades
         private DateTime fecha_nac;
         private int id_dueño;
         private int id_raza;
+        private bool activo;
 
 
         public Perro()
@@ -31,6 +32,8 @@ namespace Grupo4_PAVI_Veterinaria.Entidades
             this.fecha_nac = fecha_nac;
             this.id_dueño = id_dueño;
             this.id_raza = id_raza;
+            this.activo = true;
+
         }
 
         public int Nro_HC
@@ -69,6 +72,11 @@ namespace Grupo4_PAVI_Veterinaria.Entidades
         public int Id_raza
         {
             get => id_raza; set => id_raza = value; 
+        }
+
+        public bool Activo
+        {
+            get => activo; set => activo = value;
         }
     }
 }

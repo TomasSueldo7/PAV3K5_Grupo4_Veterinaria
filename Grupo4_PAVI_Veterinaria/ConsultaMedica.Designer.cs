@@ -478,6 +478,7 @@
             this.txtNroConsulta.Name = "txtNroConsulta";
             this.txtNroConsulta.Size = new System.Drawing.Size(69, 23);
             this.txtNroConsulta.TabIndex = 22;
+            this.txtNroConsulta.TextChanged += new System.EventHandler(this.txtNroConsulta_TextChanged);
             // 
             // ConsultaMedica
             // 

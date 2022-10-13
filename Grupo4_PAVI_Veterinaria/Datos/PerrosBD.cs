@@ -161,7 +161,7 @@ namespace Grupo4_PAVI_Veterinaria.Datos
         {
             //FALTA VALIDAR QUE NO EXISTA EL USUARIO
             bool resultado = false;
-            int act = 1;
+            
             string cadenaConexion = System.Configuration.ConfigurationManager.AppSettings["CadenaBD"];
             SqlConnection cn = new SqlConnection(cadenaConexion);
             try
@@ -178,7 +178,7 @@ namespace Grupo4_PAVI_Veterinaria.Datos
                 cmd.Parameters.AddWithValue("idDueño", per.Id_dueño);
                 cmd.Parameters.AddWithValue("peso", per.Peso);
                 cmd.Parameters.AddWithValue("altura", per.Altura);
-                cmd.Parameters.AddWithValue("activo", act);
+                cmd.Parameters.AddWithValue("activo", per.Activo);
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = consulta;
 
@@ -226,6 +226,8 @@ namespace Grupo4_PAVI_Veterinaria.Datos
                     p.Altura = float.Parse(dr["Altura"].ToString());
                     p.Id_dueño = int.Parse(dr["Id_owner"].ToString());
                     p.Id_raza = int.Parse(dr["Id_raza"].ToString());
+                    p.Activo = bool.Parse(dr["Activo"].ToString());
+                    
                 }
             }
             catch (Exception)

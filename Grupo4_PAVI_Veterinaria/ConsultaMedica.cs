@@ -29,8 +29,16 @@ namespace Grupo4_PAVI_Veterinaria
             {
                 string nroHc = txtNroHC.Text;
                 Perro p = PerrosBD.ObtenerPerro(nroHc);
-                txtNroConsulta.Text = ConsultaMedicaBD.UltimaConsultaXNroHC(nroHc);
-                RellenarPerro(p);
+                if(p.Activo)
+                {
+                    txtNroConsulta.Text = ConsultaMedicaBD.UltimaConsultaXNroHC(nroHc);
+                    RellenarPerro(p);
+                }
+                else
+                {
+                    MessageBox.Show("El perro buscado no existe, por favor ingrese un N° de historia clínica existente.");
+                    LimpiarCampos();
+                }
             }
         }
 
@@ -60,6 +68,7 @@ namespace Grupo4_PAVI_Veterinaria
             txtLegajo.Text = "";
             grdMedicamentos.Rows.Clear();
             gdrSintomas.Rows.Clear();
+            txtNroConsulta.Text = "";
         }
         private void btnBuscarMedicamentos_Click(object sender, EventArgs e)
         {
@@ -154,6 +163,11 @@ namespace Grupo4_PAVI_Veterinaria
             {
                 MessageBox.Show("Error al dar alta nuevo consulta.");
             }
+        }
+
+        private void txtNroConsulta_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
