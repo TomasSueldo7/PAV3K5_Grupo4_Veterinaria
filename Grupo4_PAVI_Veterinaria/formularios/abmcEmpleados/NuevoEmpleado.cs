@@ -21,6 +21,10 @@ namespace Grupo4_PAVI_Veterinaria.formularios.abmcEmpleados
         }
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            if(VerificarCampos() == true)
+            {
+
+            
             Empleado emp= ObtenerDatosEmpleado(); //Obtengo los datos de los txt
             bool resultado = EmpleadosBD.AgregarEmpleadoABD(emp); //Los agrego a la BD
             if (resultado)
@@ -34,6 +38,21 @@ namespace Grupo4_PAVI_Veterinaria.formularios.abmcEmpleados
             {
                 MessageBox.Show("Error al agregar Empleado");
             }
+            }
+            else
+                {
+                MessageBox.Show("Error al registrar.");
+            }
+        }
+
+        private bool VerificarCampos()
+        {
+            bool verificador = false;
+            if (cmbTipoDoc.SelectedValue != null && !txtNombre.Text.Equals("") && !txtApellido.Text.Equals("") && !txtNroDocumento.Text.Equals("") && !txtFechaIngreso.Text.Equals("") && !txtFechaNacimiento.Text.Equals("") && !txtMatricula.Text.Equals(""))
+            {
+                verificador = true;
+            }
+            return verificador; 
         }
 
         private Empleado ObtenerDatosEmpleado()
@@ -85,7 +104,7 @@ namespace Grupo4_PAVI_Veterinaria.formularios.abmcEmpleados
             catch (Exception ex)
             {
 
-            MessageBox.Show("Error al cargar los tipos de Documentos");
+                MessageBox.Show("Error al cargar los tipos de Documentos");
             }             
         }
 
@@ -101,18 +120,14 @@ namespace Grupo4_PAVI_Veterinaria.formularios.abmcEmpleados
             txtNombre.Focus();
         }
 
-        private void btnLimpiar_Click(object sender, EventArgs e)
-        {
-            LimpiarCampos();
-            btnActualizar.Enabled = false;
-            btnBaja.Enabled = false;
-        }
+        
 
         private void gdrEmpleados_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             int indice = e.RowIndex; //Me indica en que fila estoy parado
             btnActualizar.Enabled = true;
             btnBaja.Enabled = true;
+            btnAceptar.Enabled = false;
             DataGridViewRow filaSeleccionada = gdrEmpleados.Rows[indice];
             string documento = filaSeleccionada.Cells["Documento"].Value.ToString();
             Empleado emp = EmpleadosBD.ObtenerEmpleado(documento);
@@ -178,20 +193,33 @@ namespace Grupo4_PAVI_Veterinaria.formularios.abmcEmpleados
 
         private void btnBaja_Click(object sender, EventArgs e)
         {
-
-            Empleado emp = ObtenerDatosEmpleado(); //Obtengo los datos de los txt
-            bool resultado = EmpleadosBD.EliminarEmpleadoABD(emp); //Los agrego a la BD
-            if (resultado)
+            if (MessageBox.Show("Seguro que desea Eliminar el Empleado?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                MessageBox.Show("Empleado eliminado con éxito");
-                cargarGrillaEmpleados();
-                LimpiarCampos();
+                Empleado emp = ObtenerDatosEmpleado(); //Obtengo los datos de los txt
+                
+                bool resultado = EmpleadosBD.EliminarEmpleadoABD(emp); //Los agrego a la BD
+                if (resultado)
+                {
+                    MessageBox.Show("Empleado eliminado con éxito");
+                    cargarGrillaEmpleados();
+                    LimpiarCampos();
 
+                }
+                else
+                {
+                    MessageBox.Show("Error al eliminar empleado");
+                }
             }
-            else
-            {
-                MessageBox.Show("Error al eliminar empleado");
-            }
+
+                
+        }
+
+        private void btnLimpiar_Click_1(object sender, EventArgs e)
+        {
+            LimpiarCampos();
+            btnActualizar.Enabled = false;
+            btnBaja.Enabled = false;
+            btnAceptar.Enabled = true; 
         }
     }
 }

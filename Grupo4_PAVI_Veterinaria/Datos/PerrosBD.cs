@@ -49,6 +49,46 @@ namespace Grupo4_PAVI_Veterinaria.Datos
 
         }
 
+        public static DataTable ObtenerFiltroGrilla(string filtro)
+        {
+            string cadenaConexion = System.Configuration.ConfigurationManager.AppSettings["CadenaBD"];
+            SqlConnection cn = new SqlConnection(cadenaConexion);
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+
+                //string consulta1 = "SELECT Nro_HC, Nombre, Fecha_nacimiento, Id_raza, Id_owner, Peso, Altura FROM Perros";
+
+                string consulta = "SELECT P.Nro_HC, P.Nombre, P.Fecha_nacimiento, R.Denominacion, D.Nombre as Dueño, P.Peso, P.Altura " +
+                   "FROM Perros P JOIN Dueños D ON P.Id_owner = D.Id_dueño JOIN Razas R ON P.Id_raza = R.Id_raza WHERE P.Activo = 1 and P.Nombre like @filtro";
+
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("filtro", filtro);
+
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = consulta;
+
+                cn.Open();
+                cmd.Connection = cn;
+
+                DataTable tabla = new DataTable();
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(tabla);
+
+                return tabla;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cn.Close();
+            }
+
+        }
+
         public static DataTable ObtenerRazas()
         {
             string cadenaConexion = System.Configuration.ConfigurationManager.AppSettings["CadenaBD"];
@@ -121,14 +161,15 @@ namespace Grupo4_PAVI_Veterinaria.Datos
         {
             //FALTA VALIDAR QUE NO EXISTA EL USUARIO
             bool resultado = false;
+            int act = 1;
             string cadenaConexion = System.Configuration.ConfigurationManager.AppSettings["CadenaBD"];
             SqlConnection cn = new SqlConnection(cadenaConexion);
             try
             {
                 SqlCommand cmd = new SqlCommand();
 
-                string consulta = "INSERT INTO Perros (Nombre, Fecha_nacimiento, Id_raza, Id_owner, Peso, Altura) " +
-                    "VALUES (@nombre, @fechaNac, @idRaza, @idDueño, @peso, @altura)";
+                string consulta = "INSERT INTO Perros (Nombre, Fecha_nacimiento, Id_raza, Id_owner, Peso, Altura, Activo) " +
+                    "VALUES (@nombre, @fechaNac, @idRaza, @idDueño, @peso, @altura, @activo)";
                 cmd.Parameters.Clear();
 
                 cmd.Parameters.AddWithValue("nombre", per.Nombre);
@@ -137,6 +178,7 @@ namespace Grupo4_PAVI_Veterinaria.Datos
                 cmd.Parameters.AddWithValue("idDueño", per.Id_dueño);
                 cmd.Parameters.AddWithValue("peso", per.Peso);
                 cmd.Parameters.AddWithValue("altura", per.Altura);
+                cmd.Parameters.AddWithValue("activo", act);
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = consulta;
 

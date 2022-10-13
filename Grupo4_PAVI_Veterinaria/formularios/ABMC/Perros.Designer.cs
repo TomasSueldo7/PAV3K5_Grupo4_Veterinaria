@@ -57,6 +57,9 @@
             this.btnEliminar = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.txtMotivo = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtNombreBuscar = new System.Windows.Forms.TextBox();
+            this.btnBuscar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gdr_perros)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,6 +85,7 @@
             // txtNombre
             // 
             this.txtNombre.Location = new System.Drawing.Point(156, 80);
+            this.txtNombre.MaxLength = 30;
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(167, 23);
             this.txtNombre.TabIndex = 2;
@@ -185,6 +189,7 @@
             // txtPeso
             // 
             this.txtPeso.Location = new System.Drawing.Point(156, 177);
+            this.txtPeso.MaxLength = 30;
             this.txtPeso.Name = "txtPeso";
             this.txtPeso.Size = new System.Drawing.Size(167, 23);
             this.txtPeso.TabIndex = 15;
@@ -193,6 +198,7 @@
             // txtAltura
             // 
             this.txtAltura.Location = new System.Drawing.Point(156, 206);
+            this.txtAltura.MaxLength = 30;
             this.txtAltura.Name = "txtAltura";
             this.txtAltura.Size = new System.Drawing.Size(167, 23);
             this.txtAltura.TabIndex = 16;
@@ -211,12 +217,12 @@
             this.Peso,
             this.Altura,
             this.Id_owner});
-            this.gdr_perros.Location = new System.Drawing.Point(353, 14);
+            this.gdr_perros.Location = new System.Drawing.Point(349, 14);
             this.gdr_perros.MultiSelect = false;
             this.gdr_perros.Name = "gdr_perros";
             this.gdr_perros.ReadOnly = true;
             this.gdr_perros.RowTemplate.Height = 25;
-            this.gdr_perros.Size = new System.Drawing.Size(705, 438);
+            this.gdr_perros.Size = new System.Drawing.Size(709, 329);
             this.gdr_perros.TabIndex = 17;
             this.gdr_perros.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gdr_perros_CellClick);
             // 
@@ -295,6 +301,7 @@
             // 
             this.txtNroHC.Enabled = false;
             this.txtNroHC.Location = new System.Drawing.Point(156, 45);
+            this.txtNroHC.MaxLength = 30;
             this.txtNroHC.Name = "txtNroHC";
             this.txtNroHC.Size = new System.Drawing.Size(167, 23);
             this.txtNroHC.TabIndex = 20;
@@ -326,16 +333,48 @@
             // 
             this.txtMotivo.Enabled = false;
             this.txtMotivo.Location = new System.Drawing.Point(14, 290);
+            this.txtMotivo.MaxLength = 50;
             this.txtMotivo.Multiline = true;
             this.txtMotivo.Name = "txtMotivo";
             this.txtMotivo.Size = new System.Drawing.Size(307, 73);
             this.txtMotivo.TabIndex = 23;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(349, 359);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(54, 15);
+            this.label10.TabIndex = 24;
+            this.label10.Text = "Nombre:";
+            // 
+            // txtNombreBuscar
+            // 
+            this.txtNombreBuscar.Location = new System.Drawing.Point(409, 356);
+            this.txtNombreBuscar.MaxLength = 30;
+            this.txtNombreBuscar.Name = "txtNombreBuscar";
+            this.txtNombreBuscar.Size = new System.Drawing.Size(167, 23);
+            this.txtNombreBuscar.TabIndex = 25;
+            this.txtNombreBuscar.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Location = new System.Drawing.Point(593, 356);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(92, 23);
+            this.btnBuscar.TabIndex = 26;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // Perros
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1077, 464);
+            this.Controls.Add(this.btnBuscar);
+            this.Controls.Add(this.txtNombreBuscar);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.txtMotivo);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.btnEliminar);
@@ -399,5 +438,8 @@
         private Button btnEliminar;
         private Label label9;
         private TextBox txtMotivo;
+        private Label label10;
+        private TextBox txtNombreBuscar;
+        private Button btnBuscar;
     }
 }

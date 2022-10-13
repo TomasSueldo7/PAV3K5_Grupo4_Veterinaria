@@ -44,23 +44,23 @@
             this.txtNroDocumento = new System.Windows.Forms.MaskedTextBox();
             this.txtMatricula = new System.Windows.Forms.MaskedTextBox();
             this.btnAceptar = new System.Windows.Forms.Button();
-            this.btnLimpiar = new System.Windows.Forms.Button();
             this.gdrEmpleados = new System.Windows.Forms.DataGridView();
             this.ColumnaNombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnaApellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Documento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.btnBaja = new System.Windows.Forms.Button();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gdrEmpleados)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(53, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(159, 21);
+            this.label1.Size = new System.Drawing.Size(175, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "Registrar Empleado";
             // 
@@ -138,6 +138,7 @@
             // txtNombre
             // 
             this.txtNombre.Location = new System.Drawing.Point(211, 66);
+            this.txtNombre.MaxLength = 30;
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(140, 23);
             this.txtNombre.TabIndex = 10;
@@ -145,6 +146,7 @@
             // txtApellido
             // 
             this.txtApellido.Location = new System.Drawing.Point(211, 99);
+            this.txtApellido.MaxLength = 30;
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(140, 23);
             this.txtApellido.TabIndex = 11;
@@ -188,38 +190,31 @@
             // btnAceptar
             // 
             this.btnAceptar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAceptar.Location = new System.Drawing.Point(254, 362);
+            this.btnAceptar.Image = global::Grupo4_PAVI_Veterinaria.Properties.Resources.Registrar;
+            this.btnAceptar.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnAceptar.Location = new System.Drawing.Point(176, 340);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(75, 48);
+            this.btnAceptar.Size = new System.Drawing.Size(89, 70);
             this.btnAceptar.TabIndex = 17;
             this.btnAceptar.Text = "Registrar";
+            this.btnAceptar.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
-            // btnLimpiar
-            // 
-            this.btnLimpiar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnLimpiar.Location = new System.Drawing.Point(45, 362);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(75, 48);
-            this.btnLimpiar.TabIndex = 18;
-            this.btnLimpiar.Text = "Limpiar Campos";
-            this.btnLimpiar.UseVisualStyleBackColor = true;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
-            // 
             // gdrEmpleados
             // 
+            this.gdrEmpleados.AllowUserToAddRows = false;
             this.gdrEmpleados.AllowUserToDeleteRows = false;
             this.gdrEmpleados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gdrEmpleados.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnaNombre,
             this.ColumnaApellido,
             this.Documento});
-            this.gdrEmpleados.Location = new System.Drawing.Point(392, 54);
+            this.gdrEmpleados.Location = new System.Drawing.Point(392, 66);
             this.gdrEmpleados.Name = "gdrEmpleados";
             this.gdrEmpleados.ReadOnly = true;
             this.gdrEmpleados.RowTemplate.Height = 25;
-            this.gdrEmpleados.Size = new System.Drawing.Size(359, 273);
+            this.gdrEmpleados.Size = new System.Drawing.Size(379, 273);
             this.gdrEmpleados.TabIndex = 19;
             this.gdrEmpleados.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gdrEmpleados_CellContentClick);
             // 
@@ -241,43 +236,61 @@
             // 
             // Documento
             // 
-            this.Documento.DataPropertyName = "Nro_Doc";
+            this.Documento.DataPropertyName = "Nro_doc";
             this.Documento.HeaderText = "Documento";
             this.Documento.Name = "Documento";
             this.Documento.ReadOnly = true;
-            this.Documento.Width = 120;
             // 
             // btnActualizar
             // 
             this.btnActualizar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnActualizar.Location = new System.Drawing.Point(150, 362);
+            this.btnActualizar.Image = global::Grupo4_PAVI_Veterinaria.Properties.Resources.Actualizar;
+            this.btnActualizar.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnActualizar.Location = new System.Drawing.Point(96, 340);
             this.btnActualizar.Name = "btnActualizar";
-            this.btnActualizar.Size = new System.Drawing.Size(75, 48);
+            this.btnActualizar.Size = new System.Drawing.Size(73, 70);
             this.btnActualizar.TabIndex = 20;
-            this.btnActualizar.Text = "Actualizar Usuario";
+            this.btnActualizar.Text = "Actualizar";
+            this.btnActualizar.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnActualizar.UseVisualStyleBackColor = true;
             this.btnActualizar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnBaja
             // 
             this.btnBaja.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnBaja.Location = new System.Drawing.Point(359, 362);
+            this.btnBaja.Image = global::Grupo4_PAVI_Veterinaria.Properties.Resources.Eliminar;
+            this.btnBaja.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnBaja.Location = new System.Drawing.Point(271, 340);
             this.btnBaja.Name = "btnBaja";
-            this.btnBaja.Size = new System.Drawing.Size(75, 48);
+            this.btnBaja.Size = new System.Drawing.Size(89, 70);
             this.btnBaja.TabIndex = 21;
             this.btnBaja.Text = "Eliminar";
+            this.btnBaja.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnBaja.UseVisualStyleBackColor = true;
             this.btnBaja.Click += new System.EventHandler(this.btnBaja_Click);
+            // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnLimpiar.Image = global::Grupo4_PAVI_Veterinaria.Properties.Resources.Limpiar;
+            this.btnLimpiar.Location = new System.Drawing.Point(20, 340);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(70, 70);
+            this.btnLimpiar.TabIndex = 22;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click_1);
             // 
             // NuevoEmpleado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(763, 450);
+            this.ClientSize = new System.Drawing.Size(783, 450);
+            this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnBaja);
             this.Controls.Add(this.btnActualizar);
             this.Controls.Add(this.gdrEmpleados);
-            this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.txtMatricula);
             this.Controls.Add(this.txtNroDocumento);
@@ -321,12 +334,12 @@
         private MaskedTextBox txtNroDocumento;
         private MaskedTextBox txtMatricula;
         private Button btnAceptar;
-        private Button btnLimpiar;
         private DataGridView gdrEmpleados;
         private Button btnActualizar;
+        private Button btnBaja;
         private DataGridViewTextBoxColumn ColumnaNombre;
         private DataGridViewTextBoxColumn ColumnaApellido;
         private DataGridViewTextBoxColumn Documento;
-        private Button btnBaja;
+        private Button btnLimpiar;
     }
 }

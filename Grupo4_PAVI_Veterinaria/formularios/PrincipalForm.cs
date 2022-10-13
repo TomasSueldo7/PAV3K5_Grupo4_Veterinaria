@@ -1,5 +1,6 @@
 ﻿using Grupo4_PAVI_Veterinaria.formularios.abmcEmpleados;
 using Grupo4_PAVI_Veterinaria.formularios.abmcPerros;
+using Grupo4_PAVI_Veterinaria.formularios.abmcUsuario;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,7 +19,7 @@ namespace Grupo4_PAVI_Veterinaria.formularios
         {
             InitializeComponent();
             lblBienvenido.Text = lblBienvenido.Text + " " + nombreDeUsuario;
-
+            
         }
 
         private void nuevoToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -43,6 +44,28 @@ namespace Grupo4_PAVI_Veterinaria.formularios
         {
             ConsultaMedica ventana = new ConsultaMedica();
             ventana.ShowDialog();
+        }
+
+        private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+            Usuarios ventana = new Usuarios();
+            ventana.ShowDialog();
+        }
+
+        private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("App Veterinaria V1.0", "PAVI2022", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void lblBienvenido_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PrincipalForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -36,9 +36,20 @@ namespace Grupo4_PAVI_Veterinaria
 
                 if (resultado)
                 {
-                    PrincipalForm ventana = new PrincipalForm(nombreDeUsuario);
-                    ventana.Show();
-                    this.Hide();
+                    DataTable rol = UsuariosBD.ObtenerRol(nombreDeUsuario, contra);
+                    if ((rol.Rows[0][3]).ToString().Equals("administrador"))
+                    {
+                        formularios.abmcUsuario.Usuarios ven = new formularios.abmcUsuario.Usuarios();
+                        ven.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        PrincipalForm ventana = new PrincipalForm(nombreDeUsuario);
+                        ventana.Show();
+                        this.Hide();
+                    }
+                    
                 }
                 else
                 {

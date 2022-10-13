@@ -20,7 +20,7 @@ namespace Grupo4_PAVI_Veterinaria.Datos
                 SqlCommand cmd = new SqlCommand();
 
 
-                string consulta = "SELECT MAX(Id_Consulta) FROM Perros WHERE Nro_HC = @nroHC ";
+                string consulta = "SELECT MAX(Id_Consulta) FROM Consultas WHERE Nro_HC = @nroHC ";
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@nroHC", nroHc);
                 cmd.CommandType = CommandType.Text;

@@ -21,7 +21,7 @@ namespace Grupo4_PAVI_Veterinaria.Datos
                 SqlCommand cmd = new SqlCommand();
 
                 string consulta = "SELECT Nombre, Apellido, Nro_Doc " +
-                    "FROM Empleados ";
+                    "FROM Empleados where Activo = 1";
 
                 cmd.Parameters.Clear();
 
@@ -97,9 +97,9 @@ namespace Grupo4_PAVI_Veterinaria.Datos
             try
             {
                 SqlCommand cmd = new SqlCommand();
-                string consulta = "DELETE FROM Empleados where Nro_Doc like @documento";
+                string consulta = "UPDATE Empleados SET Activo = 0 WHERE Nro_doc = @emp";
                 cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@documento", emp.DocumentoEmpleado);
+                cmd.Parameters.AddWithValue("@emp", emp.DocumentoEmpleado);
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = consulta;
 

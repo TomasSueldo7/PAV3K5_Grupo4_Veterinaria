@@ -35,6 +35,7 @@ namespace Grupo4_PAVI_Veterinaria.formularios.abmcPerros
             txtFecha.Text = "";
             txtAltura.Text = "";
             txtPeso.Text = "";
+            txtNombreBuscar.Text = "";
             cmbDueño.SelectedIndex = -1;
             cmbRaza.SelectedIndex = -1;
             txtMotivo.Text = "";
@@ -152,7 +153,7 @@ namespace Grupo4_PAVI_Veterinaria.formularios.abmcPerros
         private bool VerificarCampos()
         {
             bool verificador = false;
-            if(cmbDueño.SelectedValue != null && cmbRaza.SelectedValue != null && txtNombre.Text.Equals(""))
+            if(cmbDueño.SelectedValue != null && cmbRaza.SelectedValue != null && ! txtNombre.Text.Equals(""))
             {
                 verificador = true;
             }
@@ -182,32 +183,46 @@ namespace Grupo4_PAVI_Veterinaria.formularios.abmcPerros
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
+        {       
+            
+                if (txtMotivo.Text.Equals(""))
+                {
+                    MessageBox.Show("Por favor cargue un motivo.");
+                }
+                else
+                {
+                    Perro p = ObtenerDatosPerro();
+                    DialogResult dialogResult = MessageBox.Show("¿Desea continuar con la baja?", "Confirmación de baja", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        bool resultado = PerrosBD.EliminarPerro(p.Nro_HC.ToString());
+                        MessageBox.Show("Se ha eliminado el registro.");
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                        MessageBox.Show("Usted ha cancelado la acción.");
+                    }
+                    LimpiarCampos();
+                    CargarCombosRazas();
+                    CargarCombosDueños();
+                    CargarGrilla();
+
+                }                     
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if (txtMotivo.Text.Equals(""))
+            
+            if (txtNombreBuscar.Text.Equals(""))
             {
-                MessageBox.Show("Por favor cargue un motivo.");
+                MessageBox.Show("Ingrese un nombre");
             }
             else
             {
-                Perro p = ObtenerDatosPerro();
-                DialogResult dialogResult = MessageBox.Show("¿Desea continuar con la baja?", "Confirmación de baja", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    bool resultado = PerrosBD.EliminarPerro(p.Nro_HC.ToString());
-                    MessageBox.Show("Se ha eliminado el registro.");
-                }
-                else if (dialogResult == DialogResult.No)
-                {
-                    MessageBox.Show("Usted ha cancelado la acción.");
-                }
-                LimpiarCampos();
-                CargarCombosRazas();
-                CargarCombosDueños();
-                CargarGrilla();
-
+                string filtro = txtNombreBuscar.Text.Trim();
+                gdr_perros.DataSource = PerrosBD.ObtenerFiltroGrilla(filtro);
             }
             
         }
-
     }
 }
