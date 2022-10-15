@@ -136,7 +136,8 @@ namespace Grupo4_PAVI_Veterinaria.formularios.abmcUsuario
 
         private void btnBajaUsuario_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Seguro que desea Eliminar el Usuario?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            DialogResult dialogResult = MessageBox.Show("¿Desea continuar con la baja?", "Confirmación de baja", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
                 Usuario usu = ObtenerDatosUsuario(); //Obtengo los datos de los txt
                 bool resultado = UsuariosBD.EliminarUsuarioBD(usu); //Los agrego a la BD
@@ -150,16 +151,17 @@ namespace Grupo4_PAVI_Veterinaria.formularios.abmcUsuario
                     LimpiarCampos();
 
                 }
+
                 else
                 {
                     MessageBox.Show("Error al eliminar usuario");
                 }
             }
-            else
+            else if (dialogResult == DialogResult.No)
             {
-
+                MessageBox.Show("Usted ha cancelado la acción.");
             }
-            
+
         }
 
         private void grillaUsuarios_CellClick_1(object sender, DataGridViewCellEventArgs e)

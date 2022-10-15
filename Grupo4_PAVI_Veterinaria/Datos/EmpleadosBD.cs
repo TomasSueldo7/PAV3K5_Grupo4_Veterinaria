@@ -129,7 +129,7 @@ namespace Grupo4_PAVI_Veterinaria.Datos
             try
             {
                 SqlCommand cmd = new SqlCommand();
-                string consulta = "INSERT INTO Empleados(Nombre, Apellido, Fecha_nacimiento, Tipo_doc, Nro_Doc, Fecha_ingreso, Matricula, Activo ) VALUES(@nombre, @apellido, @fechanacimiento, @tipodoc, @nrodoc, @fechaingreso, @matricula, @activo) ";
+                string consulta = "INSERT INTO Empleados(Nombre, Apellido, Fecha_nacimiento, Id_tipodoc, Nro_doc, Fecha_ingreso, Matricula, Activo ) VALUES(@nombre, @apellido, @fechanacimiento, @tipodoc, @nrodoc, @fechaingreso, @matricula, @activo) ";
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@nombre", emp.NombreEmpleado);
                 cmd.Parameters.AddWithValue("@apellido", emp.ApellidoEmpleado);
@@ -169,7 +169,7 @@ namespace Grupo4_PAVI_Veterinaria.Datos
             try
             {
                 SqlCommand cmd = new SqlCommand();
-                string consulta = "SELECT * FROM Empleados where Nro_Doc like @documento";
+                string consulta = "SELECT * FROM Empleados where Nro_doc like @documento";
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@documento", documento);
 
@@ -185,8 +185,8 @@ namespace Grupo4_PAVI_Veterinaria.Datos
                     emp.NombreEmpleado = dr["Nombre"].ToString();
                     emp.ApellidoEmpleado = dr["Apellido"].ToString();
                     emp.FechaNacimientoEmpleado = DateTime.Parse(dr["Fecha_nacimiento"].ToString());
-                    emp.IdTipoDocumentoEmpleado = int.Parse(dr["Tipo_doc"].ToString());
-                    emp.DocumentoEmpleado = dr["Nro_Doc"].ToString();
+                    emp.IdTipoDocumentoEmpleado = int.Parse(dr["Id_tipodoc"].ToString());
+                    emp.DocumentoEmpleado = dr["Nro_doc"].ToString();
                     emp.MatriculaEmpleado = dr["Matricula"].ToString();
                     emp.FechaIngresoEmpleado = DateTime.Parse(dr["Fecha_ingreso"].ToString());
 
@@ -213,7 +213,7 @@ namespace Grupo4_PAVI_Veterinaria.Datos
             try
             {
                 SqlCommand cmd = new SqlCommand();
-                string consulta = " UPDATE Empleados SET Nombre = @nombre, Apellido = @apellido, Fecha_nacimiento = @fechanacimiento, Tipo_doc = @idtipodocumento, Nro_doc = @nrodocumento, Fecha_ingreso = @fechaingreso, Matricula = @matricula " +
+                string consulta = " UPDATE Empleados SET Nombre = @nombre, Apellido = @apellido, Fecha_nacimiento = @fechanacimiento, Id_tipodoc = @idtipodocumento, Nro_doc = @nrodocumento, Fecha_ingreso = @fechaingreso, Matricula = @matricula " +
                     "WHERE Nro_doc like @nrodocumento";
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@nombre", emp.NombreEmpleado);

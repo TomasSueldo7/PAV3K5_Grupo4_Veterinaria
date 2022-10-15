@@ -23,8 +23,8 @@ namespace Grupo4_PAVI_Veterinaria.Datos
 
                 string consulta = "SELECT * FROM Usuarios WHERE Usuario LIKE @nombreDeUsuario AND Contra LIKE @password";
                 cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("nombreDeUsuario", nombreDeUsuario);
-                cmd.Parameters.AddWithValue("password", password);
+                cmd.Parameters.AddWithValue("@nombreDeUsuario", nombreDeUsuario);
+                cmd.Parameters.AddWithValue("@password", password);
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = consulta;
 

@@ -45,12 +45,12 @@
             this.txtMatricula = new System.Windows.Forms.MaskedTextBox();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.gdrEmpleados = new System.Windows.Forms.DataGridView();
-            this.ColumnaNombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnaApellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Documento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.btnBaja = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
+            this.ColumnaNombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnaApellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Documento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gdrEmpleados)).BeginInit();
             this.SuspendLayout();
             // 
@@ -216,30 +216,7 @@
             this.gdrEmpleados.RowTemplate.Height = 25;
             this.gdrEmpleados.Size = new System.Drawing.Size(379, 273);
             this.gdrEmpleados.TabIndex = 19;
-            this.gdrEmpleados.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gdrEmpleados_CellContentClick);
-            // 
-            // ColumnaNombre
-            // 
-            this.ColumnaNombre.DataPropertyName = "Nombre";
-            this.ColumnaNombre.HeaderText = "Nombre";
-            this.ColumnaNombre.Name = "ColumnaNombre";
-            this.ColumnaNombre.ReadOnly = true;
-            this.ColumnaNombre.Width = 120;
-            // 
-            // ColumnaApellido
-            // 
-            this.ColumnaApellido.DataPropertyName = "Apellido";
-            this.ColumnaApellido.HeaderText = "Apellido";
-            this.ColumnaApellido.Name = "ColumnaApellido";
-            this.ColumnaApellido.ReadOnly = true;
-            this.ColumnaApellido.Width = 120;
-            // 
-            // Documento
-            // 
-            this.Documento.DataPropertyName = "Nro_doc";
-            this.Documento.HeaderText = "Documento";
-            this.Documento.Name = "Documento";
-            this.Documento.ReadOnly = true;
+            this.gdrEmpleados.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gdrEmpleados_CellClick);
             // 
             // btnActualizar
             // 
@@ -281,6 +258,29 @@
             this.btnLimpiar.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click_1);
+            // 
+            // ColumnaNombre
+            // 
+            this.ColumnaNombre.DataPropertyName = "Nombre";
+            this.ColumnaNombre.HeaderText = "Nombre";
+            this.ColumnaNombre.Name = "ColumnaNombre";
+            this.ColumnaNombre.ReadOnly = true;
+            this.ColumnaNombre.Width = 120;
+            // 
+            // ColumnaApellido
+            // 
+            this.ColumnaApellido.DataPropertyName = "Apellido";
+            this.ColumnaApellido.HeaderText = "Apellido";
+            this.ColumnaApellido.Name = "ColumnaApellido";
+            this.ColumnaApellido.ReadOnly = true;
+            this.ColumnaApellido.Width = 120;
+            // 
+            // Documento
+            // 
+            this.Documento.DataPropertyName = "Nro_doc";
+            this.Documento.HeaderText = "Documento";
+            this.Documento.Name = "Documento";
+            this.Documento.ReadOnly = true;
             // 
             // NuevoEmpleado
             // 
@@ -337,9 +337,9 @@
         private DataGridView gdrEmpleados;
         private Button btnActualizar;
         private Button btnBaja;
+        private Button btnLimpiar;
         private DataGridViewTextBoxColumn ColumnaNombre;
         private DataGridViewTextBoxColumn ColumnaApellido;
         private DataGridViewTextBoxColumn Documento;
-        private Button btnLimpiar;
     }
 }

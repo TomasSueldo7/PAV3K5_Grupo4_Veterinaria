@@ -97,7 +97,7 @@ namespace Grupo4_PAVI_Veterinaria.formularios.abmcEmpleados
             {
                 cmbTipoDoc.DataSource = EmpleadosBD.ObtenerTipoDoc();
                 cmbTipoDoc.DisplayMember = "Nombre"; //Cada opcion del combo me lo mostras de la columna Nombre
-                cmbTipoDoc.ValueMember = "Id_TipoDoc"; //Cada opcion del combo su valor esta dado por su id
+                cmbTipoDoc.ValueMember = "Id_tipodoc"; //Cada opcion del combo su valor esta dado por su id
                 cmbTipoDoc.SelectedIndex = -1; //Deja por defecto nada seleccionado
 
         }
@@ -122,7 +122,7 @@ namespace Grupo4_PAVI_Veterinaria.formularios.abmcEmpleados
 
         
 
-        private void gdrEmpleados_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void gdrEmpleados_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int indice = e.RowIndex; //Me indica en que fila estoy parado
             btnActualizar.Enabled = true;
@@ -193,7 +193,8 @@ namespace Grupo4_PAVI_Veterinaria.formularios.abmcEmpleados
 
         private void btnBaja_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Seguro que desea Eliminar el Empleado?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            DialogResult dialogResult = MessageBox.Show("¿Desea continuar con la baja?", "Confirmación de baja", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
                 Empleado emp = ObtenerDatosEmpleado(); //Obtengo los datos de los txt
                 
@@ -210,8 +211,12 @@ namespace Grupo4_PAVI_Veterinaria.formularios.abmcEmpleados
                     MessageBox.Show("Error al eliminar empleado");
                 }
             }
+            else if (dialogResult == DialogResult.No)
+            {
+                MessageBox.Show("Usted ha cancelado la acción.");
+            }
 
-                
+
         }
 
         private void btnLimpiar_Click_1(object sender, EventArgs e)

@@ -39,6 +39,7 @@
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblBienvenido = new System.Windows.Forms.Label();
+            this.dueñosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,7 +61,8 @@
             this.perrosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nuevoToolStripMenuItem,
             this.empleadosToolStripMenuItem1,
-            this.usuariosToolStripMenuItem});
+            this.usuariosToolStripMenuItem,
+            this.dueñosToolStripMenuItem});
             this.perrosToolStripMenuItem.Name = "perrosToolStripMenuItem";
             this.perrosToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
             this.perrosToolStripMenuItem.Text = "Registros";
@@ -133,6 +135,13 @@
             this.lblBienvenido.Text = "Bienvenido";
             this.lblBienvenido.Click += new System.EventHandler(this.lblBienvenido_Click);
             // 
+            // dueñosToolStripMenuItem
+            // 
+            this.dueñosToolStripMenuItem.Name = "dueñosToolStripMenuItem";
+            this.dueñosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dueñosToolStripMenuItem.Text = "Dueños";
+            this.dueñosToolStripMenuItem.Click += new System.EventHandler(this.dueñosToolStripMenuItem_Click);
+            // 
             // PrincipalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -164,5 +173,6 @@
         private ToolStripMenuItem reportesToolStripMenuItem;
         private ToolStripMenuItem ayudaToolStripMenuItem;
         private ToolStripMenuItem acercaDeToolStripMenuItem;
+        private ToolStripMenuItem dueñosToolStripMenuItem;
     }
 }

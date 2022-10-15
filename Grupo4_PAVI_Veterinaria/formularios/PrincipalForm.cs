@@ -1,4 +1,5 @@
 ﻿using Grupo4_PAVI_Veterinaria.Datos;
+using Grupo4_PAVI_Veterinaria.formularios.abmcDueños;
 using Grupo4_PAVI_Veterinaria.formularios.abmcEmpleados;
 using Grupo4_PAVI_Veterinaria.formularios.abmcPerros;
 using Grupo4_PAVI_Veterinaria.formularios.abmcUsuario;
@@ -76,6 +77,12 @@ namespace Grupo4_PAVI_Veterinaria.formularios
         private void PrincipalForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void dueñosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Dueños ventana = new Dueños();
+            ventana.ShowDialog();
         }
     }
 }
