@@ -53,7 +53,7 @@ namespace Grupo4_PAVI_Veterinaria.formularios
 
         private void registrarConsultaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ConsultaMedica ventana = new ConsultaMedica();
+            GrillaPerros ventana = new GrillaPerros();
             ventana.ShowDialog();
         }
 

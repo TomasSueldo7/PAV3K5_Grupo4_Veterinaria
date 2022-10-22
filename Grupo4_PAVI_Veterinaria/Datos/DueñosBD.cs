@@ -50,6 +50,49 @@ namespace Grupo4_PAVI_Veterinaria.Datos
 
         }
 
+        public static Dueño ObtenerDueñoXId(string id)
+        {
+            bool resultado = false;
+            string cadenaConexion = System.Configuration.ConfigurationManager.AppSettings["CadenaBD"];
+            SqlConnection cn = new SqlConnection(cadenaConexion);
+            Dueño du = new Dueño();
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+                string consulta = "SELECT * FROM Dueños where Id_dueño like @id";
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@id", id);
+
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = consulta;
+
+                cn.Open();
+                cmd.Connection = cn;
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr != null && dr.Read())
+
+                {
+                    du.NombreDueño = dr["Nombre"].ToString();
+                    du.ApellidoDueño = dr["Apellido"].ToString();
+                    du.TelefonoDueño = dr["Telefono"].ToString();
+                    du.IdTipoDoc = (int)dr["Id_tipodoc"];
+                    du.DocumentoDueño = dr["nro_doc"].ToString();
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                cn.Close();
+            }
+            return du;
+        }
+
         public static Dueño ObtenerDueño(string? nrodoc)
         {
             bool resultado = false;

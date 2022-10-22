@@ -14,132 +14,87 @@ namespace Grupo4_PAVI_Veterinaria
 {
     public partial class ConsultaMedica : Form
     {
-        public ConsultaMedica()
+        public ConsultaMedica(Perro p)
         {
             InitializeComponent();
+            RellenarPerro(p);
+            string nroHc = txtNroHC.Text;
+            txtNroConsulta.Text = ConsultaMedicaBD.UltimaConsultaXNroHC(nroHc);
+            CargarCombosMedicamentos();
+            CargarCombosSintomas(); 
+                
+            
         }
 
-        private void btnBuscarHC_Click(object sender, EventArgs e)
-        {
-            if (txtNroHC.Text.Equals(""))
-            {
-                MessageBox.Show("Ingrese un número de historia clínica.");
-            }
-            else
-            {
-                string nroHc = txtNroHC.Text;
-                Perro p = PerrosBD.ObtenerPerro(nroHc);
-                if(p.Activo)
-                {
-                    txtNroConsulta.Text = ConsultaMedicaBD.UltimaConsultaXNroHC(nroHc);
-                    RellenarPerro(p);
-                }
-                else
-                {
-                    MessageBox.Show("El perro buscado no existe, por favor ingrese un N° de historia clínica existente.");
-                    LimpiarCampos();
-                }
-            }
-        }
 
         private void RellenarPerro(Perro p)
         {
             txtNombre.Text = p.Nombre;
+            txtNroHC.Text = p.Nro_HC.ToString();
             txtFechaNacimiento.Text = p.FechaNacimiento.ToString();
             txtAltura.Text = p.Altura.ToString();
             txtPeso.Text = p.Peso.ToString();
-            txtRaza.Text = p.Id_raza.ToString();
-            txtDueño.Text = p.Id_dueño.ToString();
+            Dueño d = DueñosBD.ObtenerDueñoXId(p.Id_dueño.ToString());
+            txtRaza.Text = PerrosBD.ObtenerRazasXId(p.Id_raza.ToString());
+            txtDueño.Text = d.NombreDueño.ToString() + " " + d.ApellidoDueño.ToString();
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             LimpiarCampos();
         }
-        private void LimpiarCampos()
-        {
-            txtNombre.Text = "";
-            txtFechaNacimiento.Text = "";
-            txtAltura.Text = "";
-            txtPeso.Text = "";
-            txtRaza.Text = "";
-            txtDueño.Text = "";
-            txtNroHC.Text = "";
-            txtLegajo.Text = "";
+        private void LimpiarCampos() { 
+        
             grdMedicamentos.Rows.Clear();
             gdrSintomas.Rows.Clear();
-            txtNroConsulta.Text = "";
+            cmbMedicamentos.SelectedIndex = -1;
+            cmbSintomas.SelectedIndex = -1;
+        }
+
+        private void Volver()
+        {
+            this.Close();
         }
         private void btnBuscarMedicamentos_Click(object sender, EventArgs e)
         {
-            if (txtNroMedicamento.Text.Equals(""))
+            if (txtMedicamento.Text.Equals(""))
             {
-                MessageBox.Show("Ingrese un número de medicamento.");
+                MessageBox.Show("Ingrese un nombre de medicamento");
             }
             else
             {
-                try
-                {
-                    DataTable tablaResultado = Comunes.ObtenerMedicamentosXId(int.Parse(txtNroMedicamento.Text.Trim()));
-                    if (tablaResultado.Rows.Count > 0)
-                    {
-                        txtMedicamento.Text = tablaResultado.Rows[0][1].ToString();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Medicamento inexistente.");
-                        txtNroMedicamento.Focus();
-                        txtNroMedicamento.Text = "";
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw;
-                }
+                string filtro = txtMedicamento.Text.Trim();
+                cmbMedicamentos.DataSource = Comunes.ObtenerMedicamentosXNombre(filtro);
+                cmbMedicamentos.DisplayMember = "Nombre";
+                cmbMedicamentos.ValueMember = "Id_medicamento";
+                cmbMedicamentos.SelectedIndex = -1;
             }
         }
 
         private void btnBuscarSintomas_Click(object sender, EventArgs e)
         {
-            if (txtNroSintoma.Text.Equals(""))
+            if (txtMedicamento.Text.Equals(""))
             {
-                MessageBox.Show("Ingrese un número de sintoma.");
+                MessageBox.Show("Ingrese un nombre de sintoma");
             }
             else
             {
-                try
-                {
-                    DataTable tablaResultado = Comunes.ObtenerSintomasXId(int.Parse(txtNroSintoma.Text.Trim()));
-                    if (tablaResultado.Rows.Count > 0)
-                    {
-                        txtSintoma.Text = tablaResultado.Rows[0][1].ToString();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Sintoma inexistente.");
-                        txtNroSintoma.Focus();
-                        txtNroSintoma.Text = "";
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw;
-                }
+                string filtro = txtSintoma.Text.Trim();
+                cmbSintomas.DataSource = Comunes.ObtenerSintomasXNombre(filtro);
+                cmbSintomas.DisplayMember = "Descripcion";
+                cmbSintomas.ValueMember = "Id_sintoma";
+                cmbSintomas.SelectedIndex = -1;
             }
-        }
-
-        private void btnAgregarMedicamentos_Click(object sender, EventArgs e)
-        {
-            grdMedicamentos.Rows.Add(txtNroMedicamento.Text.Trim(), txtMedicamento.Text.Trim());
-        }
-
-        private void btnAgregarSintomas_Click(object sender, EventArgs e)
-        {
-            gdrSintomas.Rows.Add(txtNroSintoma.Text.Trim(), txtSintoma.Text.Trim());
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            if(txtLegajo.Equals("") || grdMedicamentos.Rows.Count == 0 || gdrSintomas.Rows.Count == 0)
+            {
+                MessageBox.Show("Algunos campos se encuentran vacios, por favor verifique.");
+                return;
+            }
+            
             List<int> listaMedicamentos = new List<int>();
             for (int i = 0; i < grdMedicamentos.Rows.Count; i++)
             {
@@ -165,9 +120,42 @@ namespace Grupo4_PAVI_Veterinaria
             }
         }
 
-        private void txtNroConsulta_TextChanged(object sender, EventArgs e)
+        private void CargarCombosMedicamentos()
+        {
+            cmbMedicamentos.DataSource = Comunes.ObtenerMedicamentos();
+            cmbMedicamentos.DisplayMember = "Nombre";
+            cmbMedicamentos.ValueMember = "Id_medicamento";
+            cmbMedicamentos.SelectedIndex = -1;
+        }
+
+        private void CargarCombosSintomas()
+        {
+            cmbSintomas.DataSource = Comunes.ObtenerSintomas();
+            cmbSintomas.DisplayMember = "Descripcion";
+            cmbSintomas.ValueMember = "Id_sintoma";
+            cmbSintomas.SelectedIndex = -1;
+        }
+
+
+
+        private void ConsultaMedica_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnAgregarM_Click(object sender, EventArgs e)
+        {
+            grdMedicamentos.Rows.Add(cmbMedicamentos.SelectedValue, cmbMedicamentos.Text);
+        }
+
+        private void btnAgregarSintomas_Click(object sender, EventArgs e)
+        {
+            gdrSintomas.Rows.Add(cmbSintomas.SelectedValue, cmbSintomas.Text);
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            Volver();
         }
     }
 }

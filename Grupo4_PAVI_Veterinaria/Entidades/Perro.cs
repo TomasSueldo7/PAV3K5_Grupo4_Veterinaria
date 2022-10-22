@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Grupo4_PAVI_Veterinaria.Entidades
 {
-    internal class Perro
+    public class Perro
     {
         private int nro_HC;
         private string nombre;

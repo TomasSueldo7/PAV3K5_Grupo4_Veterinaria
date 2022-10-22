@@ -225,10 +225,5 @@ namespace Grupo4_PAVI_Veterinaria.formularios.abmcPerros
             }
             
         }
-
-        private void gdr_perros_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

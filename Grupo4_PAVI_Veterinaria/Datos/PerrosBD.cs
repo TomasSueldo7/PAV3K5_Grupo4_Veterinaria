@@ -123,6 +123,37 @@ namespace Grupo4_PAVI_Veterinaria.Datos
             }
         }
 
+        public static string ObtenerRazasXId(string id)
+        {
+            string cadenaConexion = System.Configuration.ConfigurationManager.AppSettings["CadenaBD"];
+            SqlConnection cn = new SqlConnection(cadenaConexion);
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+
+
+                string consulta = "SELECT Denominacion FROM Razas WHERE Id_raza = @id";
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = consulta;
+
+                cn.Open();
+                cmd.Connection = cn;
+
+                string resultado = (string)cmd.ExecuteScalar();
+                return resultado;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
+
         public static DataTable ObtenerDueños()
         {
             string cadenaConexion = System.Configuration.ConfigurationManager.AppSettings["CadenaBD"];
@@ -172,13 +203,13 @@ namespace Grupo4_PAVI_Veterinaria.Datos
                     "VALUES (@nombre, @fechaNac, @idRaza, @idDueño, @peso, @altura, @activo)";
                 cmd.Parameters.Clear();
 
-                cmd.Parameters.AddWithValue("nombre", per.Nombre);
-                cmd.Parameters.AddWithValue("fechaNac", per.FechaNacimiento);
-                cmd.Parameters.AddWithValue("idRaza", per.Id_raza);
-                cmd.Parameters.AddWithValue("idDueño", per.Id_dueño);
-                cmd.Parameters.AddWithValue("peso", per.Peso);
-                cmd.Parameters.AddWithValue("altura", per.Altura);
-                cmd.Parameters.AddWithValue("activo", per.Activo);
+                cmd.Parameters.AddWithValue("@nombre", per.Nombre);
+                cmd.Parameters.AddWithValue("@fechaNac", per.FechaNacimiento);
+                cmd.Parameters.AddWithValue("@idRaza", per.Id_raza);
+                cmd.Parameters.AddWithValue("@idDueño", per.Id_dueño);
+                cmd.Parameters.AddWithValue("@peso", per.Peso);
+                cmd.Parameters.AddWithValue("@altura", per.Altura);
+                cmd.Parameters.AddWithValue("@activo", per.Activo);
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = consulta;
 
@@ -196,6 +227,47 @@ namespace Grupo4_PAVI_Veterinaria.Datos
             {
                 cn.Close();
             }
+        }
+
+
+        public static DataTable ObtenerPerroXNombre(string nombre)
+        {
+            string cadenaConexion = System.Configuration.ConfigurationManager.AppSettings["CadenaBD"];
+            SqlConnection cn = new SqlConnection(cadenaConexion);
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+
+                //string consulta1 = "SELECT Nro_HC, Nombre, Fecha_nacimiento, Id_raza, Id_owner, Peso, Altura FROM Perros";
+
+                string consulta = "SELECT P.Nro_HC, P.Nombre, P.Fecha_nacimiento, R.Denominacion, D.Nombre as Dueño, P.Peso, P.Altura " +
+                   "FROM Perros P JOIN Dueños D ON P.Id_owner = D.Id_dueño JOIN Razas R ON P.Id_raza = R.Id_raza WHERE P.Activo = 1 and P.Nombre LIKE @nombre";
+
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@nombre", nombre);
+
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = consulta;
+
+                cn.Open();
+                cmd.Connection = cn;
+
+                DataTable tabla = new DataTable();
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(tabla);
+
+                return tabla;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cn.Close();
+            }
+
         }
 
         public static Perro ObtenerPerro(string nroHC)
@@ -227,12 +299,12 @@ namespace Grupo4_PAVI_Veterinaria.Datos
                     p.Id_dueño = int.Parse(dr["Id_owner"].ToString());
                     p.Id_raza = int.Parse(dr["Id_raza"].ToString());
                     p.Activo = bool.Parse(dr["Activo"].ToString());
-                    
+
                 }
             }
             catch (Exception)
             {
-                throw;
+                MessageBox.Show("El perro no existe.");
             }
             finally
             {
@@ -254,13 +326,13 @@ namespace Grupo4_PAVI_Veterinaria.Datos
                 string actualizacion = "UPDATE Perros SET Nombre = @nombre, Fecha_nacimiento = @fechaNac, Id_raza = @idRaza, Id_owner = @idDueño, Peso = @peso, " +
                     "Altura = @altura WHERE Nro_HC LIKE @nroHC";
                 cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("nroHC", p.Nro_HC);
-                cmd.Parameters.AddWithValue("nombre", p.Nombre);
-                cmd.Parameters.AddWithValue("fechaNac", p.FechaNacimiento);
-                cmd.Parameters.AddWithValue("idRaza", p.Id_raza);
-                cmd.Parameters.AddWithValue("idDueño", p.Id_dueño);
-                cmd.Parameters.AddWithValue("peso", p.Peso);
-                cmd.Parameters.AddWithValue("altura", p.Altura);
+                cmd.Parameters.AddWithValue("@nroHC", p.Nro_HC);
+                cmd.Parameters.AddWithValue("@nombre", p.Nombre);
+                cmd.Parameters.AddWithValue("@fechaNac", p.FechaNacimiento);
+                cmd.Parameters.AddWithValue("@idRaza", p.Id_raza);
+                cmd.Parameters.AddWithValue("@idDueño", p.Id_dueño);
+                cmd.Parameters.AddWithValue("@peso", p.Peso);
+                cmd.Parameters.AddWithValue("@altura", p.Altura);
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = actualizacion;
 
@@ -295,7 +367,7 @@ namespace Grupo4_PAVI_Veterinaria.Datos
                 string actualizacion = "UPDATE Perros SET Activo = 0 WHERE Nro_HC = @nro";
 
                 cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("nro", nro);
+                cmd.Parameters.AddWithValue("@nro", nro);
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = actualizacion;
 

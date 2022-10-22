@@ -225,7 +225,6 @@
             this.gdr_perros.Size = new System.Drawing.Size(709, 329);
             this.gdr_perros.TabIndex = 17;
             this.gdr_perros.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gdr_perros_CellClick);
-            this.gdr_perros.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gdr_perros_CellContentClick);
             // 
             // Nro_HC
             // 
